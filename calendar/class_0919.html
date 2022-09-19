@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        img_num = 1;
+        function MovePrev(){
+            img_num--;
+            if(img_num <= 0)
+            img_num++;
+            document.getElementById("img_view").src="Ggobugi"+img_num.tostring()+".jpg";
+        }
+        function MoveNext(){
+            img_num++;
+            if(img_num >= 5)
+            img_num--;
+            document.getElementById("img_view").src="Ggobugi"+img_num.tostring()+".jpg";
+        }
+    </script>
+    <div>
+        <center>
+            <button onclick="MovePrev()">이전</button >
+            <button onclick="MoveNext()">다음</button >
+            
+            <br/><br/>
+            <img id="img_view" src="Ggobugi1.jpg" alt="">
+        </center>
+    </div>
+</body>
+</html>

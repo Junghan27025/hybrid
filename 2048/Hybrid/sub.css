@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+hr {
+    width: 500px;
+}
+#app{
+    width: 400px;
+    height:400px;
+    margin: 0 auto;
+    background-color: beige;
+    display: grid;
+    grid-template: 100px 100px 100px 100px/100px 100px 100px 100px;
+    grid-gap: 1px;
+}
+
+[class *= backblock] {
+    width:90px;
+    height:90px;
+    background-color: burlywood;
+    border: 5px solid #bbada0;
+    
+    
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 80px;
+}

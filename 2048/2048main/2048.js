@@ -14,19 +14,37 @@ function keyDownEventHandler(e){
 }
 
 // 초기 설정
+
 init();
+
 function init(){
     score=0;
+    var bonus = parseInt(Math.random()*10);
     for(var i=0;i<4;i++)
         for(var j=0;j<4;j++)
             board[i][j]=0;
-    for(var i=0;i<2;i++){
-        var rand = parseInt(Math.random()*16);
-        var y = parseInt(rand / 4);
-        var x = rand % 4;
-        if(board[y][x]==0) board[y][x]=getNewNum();
-        else i--;
+    if(bonus>4)
+    {
+        for(var i=0;i<1;i++){
+          var rand = parseInt(Math.random()*16);
+          var y = parseInt(rand / 4);
+         var x = rand % 4;
+         if(board[y][x]==0) board[y][x]=getNewNum();  
+        }
     }
+    else{
+        for(var i=0;i<1;i++){
+            var rand = parseInt(Math.random()*16);
+            var y = parseInt(rand / 4);
+           var x = rand % 4;
+           if(board[y][x]==0) board[y][x]=getNewNum2(); 
+           var rand = parseInt(Math.random()*16);
+           var y = parseInt(rand / 4);
+           var x = rand % 4;
+           if(board[y][x]==0) board[y][x]=getNewNum4(); 
+          }
+    }    
+    
     update();
 }
 
@@ -40,6 +58,7 @@ function update(){
         }
     }
     document.getElementById("score").innerHTML=score;
+    checkGameClear();
 }
 
 // 칸 색칠
@@ -149,21 +168,20 @@ function move(){
                 board[i][j]=0;
                 isMoved=true;
             }
-            // else{
-            //     if(isPlused[tempY][j]==0){
-            //         board[tempY][j]*=2;
-            //         score+=board[tempY][j];
-            //         board[i][j]=0;
-            //         isPlused[tempY][j]=1;
-            //         isMoved=true;
-            //     }
-            // }
-            //    else{
-            //         board[tempY+1][j]=board[i][j];
-            //         board[i][j]=0;
-            //         isMoved=true;
-            //     }
-            // }
+            else{
+                if(isPlused[tempY][j]==0){
+                    board[tempY][j]*=2;
+                    score+=board[tempY][j];
+                    board[i][j]=0;
+                    isPlused[tempY][j]=1;
+                    isMoved=true;
+                }
+                else{
+                    board[tempY+1][j]=board[i][j];
+                    board[i][j]=0;
+                    isMoved=true;
+                }
+            }
         }
     }
     if(isMoved) generate();
@@ -183,7 +201,7 @@ function generate(){
                 if(board[i][j]==0){
                     var rand = parseInt(Math.random()*zeroNum);
                     if(rand==0){
-                        board[i][j]=getNewNum();
+                        board[i][j]=getNewNum2();
                         return;
                     }
                 }
@@ -194,44 +212,68 @@ function generate(){
 
 // 숫자 생성 확률
 function getNewNum(){
+    var Num123 = 0;
     var rand = parseInt(Math.random()*10);
-    if(rand==0) return 4;
+    if(rand>4) 
+    {return 4; Num123 = 0;}
+    else{return 2; Num123 = 1;}
+    
+}
+function getNewNum2(){
+    
     return 2;
 }
+function getNewNum4(){
+    
+    return 4;
+}
 
-// // 최대 점수 반환
-// function getMaxNum(){
-//     var ret=0;
-//     for(var i=0;i<4;i++)
-//         for(var j=0;j<4;j++)
-//             if(board[i][j]>ret)
-//                 ret=board[i][j];
-//     return ret;
-// }
+// 최대 점수 반환
+function getMaxNum(){
+    var ret=0;
+    for(var i=0;i<4;i++)
+        for(var j=0;j<4;j++)
+            if(board[i][j]>ret)
+                ret=board[i][j];
+    return ret;
+}
 
-// // 게임오버 체크
-// function checkGameOver(){
-//     for(var i=0;i<4;i++){
-//         var colCheck = board[i][0];
-//         if(colCheck==0) return;
-//         for(var j=1;j<4;j++){
-//             if(board[i][j]==colCheck || board[i][j]==0) return;
-//             else colCheck = board[i][j];
-//         }
-//     }
-//     for(var i=0;i<4;i++){
-//         var rowCheck = board[0][i];
-//         if(rowCheck==0) return;
-//         for(var j=1;j<4;j++){
-//             if(board[j][i]==rowCheck || board[j][i]==0) return;
-//             else rowCheck = board[j][i];
-//         }
-//     }
-//     gameover();
-// }
+// 게임오버 체크
+function checkGameOver(){
+    for(var i=0;i<4;i++){
+        var colCheck = board[i][0];
+        if(colCheck==0) return;
+        for(var j=1;j<4;j++){
+            if(board[i][j]==colCheck || board[i][j]==0) return;
+            else colCheck = board[i][j];
+        }
+    }
+    for(var i=0;i<4;i++){
+        var rowCheck = board[0][i];
+        if(rowCheck==0) return;
+        for(var j=1;j<4;j++){
+            if(board[j][i]==rowCheck || board[j][i]==0) return;
+            else rowCheck = board[j][i];
+        }
+    }
+    gameover();
+}
 
-// // 게임오버 처리
-// function gameover(){
-//     alert("[Game Over]\nMax: "+getMaxNum()+"\nScore"+score);
-//     init();
-// }
+function checkGameClear()
+{
+    if(score>100)
+    {
+        gameclear();
+    }
+}
+
+// 게임오버 처리
+function gameover(){
+    alert("[Game Over]\nMax: "+getMaxNum()+"\nScore"+score);
+    init();
+}
+
+function gameclear(){
+    alert("[Game Clear]\nScore"+score+"축하합니다!!");
+    init();
+}

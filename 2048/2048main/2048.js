@@ -3,20 +3,19 @@ var tableID = Array(Array("00","01","02","03"),Array("10","11","12","13"),Array(
 var score;
 
 // 키보드 입력 처리
-document.onkeydown = keyDownEventHandler;
-function keyDownEventHandler(e){
-    switch(e.keyCode){
-        case 38: moveDir(0); break; //up
-        case 40: moveDir(1); break; //down
-        case 37: moveDir(2); break; //left
-        case 39: moveDir(3); break; //right
-    }
-}
+
 
 // 초기 설정
 
-init();
+init1()
 
+function init1(){
+    score=0;
+    var bonus = parseInt(Math.random()*10);
+    for(var i=0;i<4;i++)
+        for(var j=0;j<4;j++)
+            board[i][j]=0;
+}
 function init(){
     score=0;
     var bonus = parseInt(Math.random()*10);
@@ -44,7 +43,15 @@ function init(){
            if(board[y][x]==0) board[y][x]=getNewNum4(); 
           }
     }    
-    
+    document.onkeydown = keyDownEventHandler;
+    function keyDownEventHandler(e){
+    switch(e.keyCode){
+        case 38: moveDir(0); break; //up
+        case 40: moveDir(1); break; //down
+        case 37: moveDir(2); break; //left
+        case 39: moveDir(3); break; //right
+    }
+}
     update();
 }
 
@@ -277,3 +284,4 @@ function gameclear(){
     alert("[Game Clear]\nScore"+score+"축하합니다!!");
     init();
 }
+

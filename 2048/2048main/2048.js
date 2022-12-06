@@ -270,7 +270,9 @@ function checkGameClear()
 {
     if(score>100)
     {
-        gameclear();
+        window.open(function(){
+            init();
+        })
     }
 }
 
@@ -280,8 +282,18 @@ function gameover(){
     init();
 }
 
-function gameclear(){
+function gameClear(){
     alert("[Game Clear]\nScore"+score+"축하합니다!!");
     init();
+    
 }
+
+function gameStart(){
+    
+    init();
+}
+
+function restartBtn(){
+}
+
 

@@ -7,7 +7,6 @@
     </head>
     <link rel="stylesheet" type="text/css" href="2048.css">
     <body>
-        <div id="gameoverBackGround">234</div>
         <table id="titleBar" border=0>
             <tr>
                 <td id="titlePad">
@@ -18,7 +17,7 @@
                     <p id="score"></p>
             </tr>
         </table>
-        
+        <button id = "endBtn">RESTART</button>
         <table id="board" border=0>
             <tr>
                 <td id="00"></td>
@@ -48,11 +47,18 @@
         <p id="info"></p>
         <button id ="startBtn">START</button>
         
+        <button id ="endBtn">RESTART</button>
+        
         <script>
-        const myButton = document.getElementById("startBtn");
-        myButton.addEventListener('click', () => {
+        const startButton = document.getElementById("startBtn");
+        startButton.addEventListener('click', () => {
         document.getElementById("startBtn").onclick = 
-        function (){ init();
+        function (){ gameStart();
+        }});
+        const endButton = document.getElementById("endBtn");
+        endButton.addEventListener('click', () => {
+        document.getElementById("endBtn").onclick = 
+        function (){init();
         }});
         
         </script>

@@ -70,3 +70,11 @@ body{
     width: 300px;
     margin-left: 325px;
 }
+#endBtn{
+    margin: 0%;
+    position : absolute;
+    height: 300px;
+    width: 300px;
+    margin-left: 325px;
+    /* display : none; */
+}
